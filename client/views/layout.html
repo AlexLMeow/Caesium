@@ -1,0 +1,24 @@
+<!--
+/client/views/layout.html
+
+main app layout
+-->
+
+<template name='layout'>
+	{{> navbar}}
+
+	<div class="container">
+	{{> yield}}
+	</div>
+
+	<footer class='footer layout-footer'>
+		<div class="container"></div>
+	</footer>
+</template>
+
+
+
+
+
+<!-- for route testing -->
+<template name='test'>This is a test template</template>

@@ -1,0 +1,27 @@
+hr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.progress {
+	margin-bottom: 10px;
+}
+
+/* max size of navbar task dropdown */
+.navbar-nav .dropdown-menu {
+	max-height: 60vh;
+	overflow:hidden;
+	overflow-y:auto;
+}
+
+.label-black {
+	background-color: black;
+	border-color: #909090;
+	border-width: 1px;
+	border-style: solid;
+}
+
+a.def-cursor {
+	cursor: default;
+}
+

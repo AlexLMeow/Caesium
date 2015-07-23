@@ -1,0 +1,377 @@
+<!--
+	/client/views/home.html
+-->
+
+<!-- HOME VIEW -->
+<template name='home'>
+<div class="row">
+	<div class="col-md-4">
+
+		{{> tasksHome}}
+
+	</div>
+	<div class="col-md-8">
+		{{> calView}}
+	</div>
+</div>
+</template>
+
+<!-- ###################################################################### -->
+<!-- home tasks view: all active and not overdue -->
+
+<template name='tasksHome'>
+
+	<!-- add task modal -->
+	<div class="modal fade" id="addTaskFromHome" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <div class="modal-header text-center">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Task</h4>
+	      </div>
+
+	      <div class="modal-body">
+	      	<form>   		
+
+	      		<!-- name input -->
+	      		<div class="form-group">
+	      			<label for="newTask-home-name">Task name</label><small class="pull-right">Cannot be empty, max 25</small>
+	      			<input id="newTask-home-name" name="taskname" class="form-control" type="text" maxlength="25" placeholder="Task name">
+	      		</div>
+
+	      		<!-- duration and prio input -->
+	      		<div class="form-group">	      			
+	      			<label>Time required to complete task </label><small> min 1 minute, max 10k hours</small>
+	      			<div class="row">
+		      			<div class="col-md-3"> <!-- hours -->
+			      			<div class="input-group">
+			      				<input id="newTask-home-dur-h" name="dur-h" class="form-control" type="number" min="0" value="0"><span class="input-group-addon">hrs</span>
+			      			</div>
+		      			</div>
+		      			<div class="col-md-3"> <!-- minutes -->
+		      				<div class="input-group">
+			      				<input id="newTask-home-dur-m" name="dur-m" class="form-control" type="number" min="0" max="59" value="1"><span class="input-group-addon">min</span>
+			      			</div>
+			      		</div>
+
+			      		<div class="col-md-6"> <!-- prio -->
+			      			<div class="input-group">
+				      			<span class="input-group-addon">Priority</span>
+				      			<select id="newTask-home-prio" name="prio" class="form-control">
+				      				<option value="0">Low</option>
+				      				<option value="1" selected>Normal</option>
+				      				<option value="2">High</option>
+				      				<option value="3">Critical</option>
+				      			</select>
+				      		</div>
+				      	</div>
+
+		      		</div>
+	      		</div>
+
+
+	      		<!-- due input -->
+      			<div class="form-group">
+  						<label for="newTask-home-due">Due date</label>
+      				<input id="newTask-home-due" name="due" class="datetimepicker" type="hidden">
+	      		</div>
+
+	      		<!-- tag input -->
+	      		<div class="form-group">
+	      			<label for="newTask-home-tags pull-left">Add tags (optional)</label><small class="pull-right">You can type your own custom tags</small>
+	      			<input type="hidden" name="tags" id="newTask-home-tags" class="btn-block">
+	      		</div>
+
+	      		<!-- notes input -->
+	      		<div class="form-group">
+	      			<label for="newTask-home-notes">Notes or comments for this task</label>
+	      			<div id="newTask-home-notes" class="summernote" name="notes"></div>
+	      		</div>
+
+	      	</form>
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="addTask-home" data-dismiss="modal">Add Task</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+	<!-- add progress modal -->
+	<div class="modal fade" id="addProgFromHome" tabIndex="-1">
+		<!-- stores id of source task in value -->
+		<input type="hidden" id="addProgFromHomeTaskID">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<div class="modal-header text-center">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Log Progress</h4>
+				</div>
+
+				<div class="modal-body">
+					<form>
+
+						<!-- Amount of progress -->
+						<div class="form-group">
+							<label>Progress made</label>
+							<div class="row">
+		      			<div class="col-md-5"> <!-- hours -->
+			      			<div class="input-group">
+			      				<input id="newProg-home-dur-h" name="dur-h" class="form-control" type="number" min="0" value="0"><span class="input-group-addon">hrs</span>
+			      			</div>
+		      			</div>
+		      			<div class="col-md-5"> <!-- minutes -->
+		      				<div class="input-group">
+			      				<input id="newProg-home-dur-m" name="dur-m" class="form-control" type="number" min="0" max="59" value="1"><span class="input-group-addon">min</span>
+			      			</div>
+			      		</div>
+			      	</div>
+						</div>
+
+						<!-- date input -->
+      			<div class="form-group">
+  						<label for="newProg-home-date">Date of progress</label>
+      				<input id="newProg-home-date" class="datetimepicker" name="date" type="hidden">
+	      		</div>
+
+					</form>
+				</div>
+
+				<div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="addProg-home" data-dismiss="modal">Log Progress</button>
+	      </div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- add event modal -->
+	<div class="modal fade" id="addEventFromHome" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <div class="modal-header text-center">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">New Event</h4>
+	      </div>
+
+	      <div class="modal-body">
+	      	<form>
+		      	<div class="form-group">
+		      		<label>Title of event</label>
+		      		<input type="text" class="form-control" maxlength="25" id="home-new-evt-title">
+		      	</div>
+		      </form>
+	      </div>
+
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" id="addEvent-home" data-dismiss="modal">Add Event</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+	<!-- update/delete event modal -->
+	<div class="modal fade" id="editEventFromHome" tabindex="-1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <div class="modal-header text-center">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Edit/Delete Event</h4>
+	      </div>
+
+	      <div class="modal-body">
+	      	<form>
+		      	<div class="form-group">
+		      		<label>Title of event</label>
+		      		<input type="text" class="form-control" maxlength="25" id="home-edit-evt-title">
+		      	</div>
+		      </form>
+	      </div>
+
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      	<button type="button" id="delEvent-home" class="btn btn-danger" data-dismiss="modal">Delete Event</button>
+	        <button type="button" class="btn btn-primary" id="editEvent-home" data-dismiss="modal">Update Event</button>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+	<!-- controls -->
+	<div class="row"><div class="col-md-12">
+
+		<div class="btn-toolbar">
+
+			<div class="btn-group pull-left"> <!-- add task button -->
+				<button type="button" id="home-addTaskModTrigger" class="btn btn-default btn-glyph" data-placement="top" title="Add a new task" data-hover="tooltip" data-toggle="modal" data-target="#addTaskFromHome">
+				  <span class="glyphicon glyphicon-plus"></span> Add Task
+				</button>
+			</div>
+
+			<div class="btn-group pull-right"> <!-- sort results -->
+
+				<button type="button" class="btn btn-default btn-inactive">
+					<span class="glyphicon glyphicon-sort"></span> Sort by:
+				</button>
+
+				<div class="btn-group">
+					{{{btnSort}}}
+					<ul class="dropdown-menu">
+						<li><a href="#" class="sort-select" type="danger">
+							<span class="glyphicon glyphicon-hourglass"></span>
+							Remaining safe time
+						</a></li>
+						<li><a href="#" class="sort-select" type="due">
+							<span class="glyphicon glyphicon-time"></span>
+							Due date
+						</a></li>
+						<li><a href="#" class="sort-select" type="prio">
+							<span class="glyphicon glyphicon-star-empty"></span>
+							Priority
+						</a></li>
+						<li><a href="#" class="sort-select" type="percent" rel="asc">
+							<span class="glyphicon glyphicon-sort-by-attributes"></span>
+							Least progress
+						</a></li>
+						<li><a href="#" class="sort-select" type="percent" rel="desc">
+							<span class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+							Most progress
+						</a></li>
+						<li><a href="#" class="sort-select" type="name" rel="asc">
+							<span class="glyphicon glyphicon-sort-by-alphabet"></span>
+							Name (A-Z)
+						</a></li>
+						<li><a href="#" class="sort-select" type="name" rel="desc">
+							<span class="glyphicon glyphicon-sort-by-alphabet-alt"></span>
+							Name (Z-A)
+						</a></li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="btn-group pull-right"> <!-- limit results -->
+				<button type="button" class="home-limit btn btn-default {{btnLimitClass 3}}" data-placement="top" title="Limit 3 shown" data-hover="tooltip">3</button>
+				<button type="button" class="home-limit btn btn-default {{btnLimitClass 5}}" data-placement="top" title="Limit 5 shown" data-hover="tooltip">5</button>
+				<button type="button" class="home-limit btn btn-default {{btnLimitClass 10}}" data-placement="top" title="Limit 10 shown" data-hover="tooltip">10</button>
+			</div>
+
+		</div>
+
+	</div></div>
+
+	<!-- tasks -->
+	<div class="row">
+		<div class="col-md-12 vht-75 nicescroll">
+			{{#each homeTasks}}
+				{{> taskHome}}
+			{{/each}}
+		</div>
+	</div>
+
+</template>
+
+
+<!-- ###################################################################### -->
+<!-- home single task -->
+
+<template name="taskHome">
+	<div class="panel panel-default panel-home">
+
+    <div class="panel-heading hover-darken" style="cursor:pointer;" data-target="#homecollapse{{_id}}" data-toggle="collapse">
+    	<div class="pull-left">
+      	<a href="#" class="panel-title h3 valign">{{name}}</a>
+      </div>
+    	<div class="btn-group pull-right">
+      	<!--  small (imprecise) timer counting down to danger -->
+	      {{{dTimerSmall danger}}}
+      	<button class="btn btn-sm btn-default home-edit-task">
+      		<span class="glyphicon glyphicon-pencil"></span>
+      	</button>
+	    </div>
+	    <span class="clearfix"></span>
+    </div>
+
+    <div id="homecollapse{{_id}}" class="panel-collapse collapse in">
+      <div class="panel-body unpad-y">
+
+        <div class="row">
+        	<!-- prio, last-progress, due -->
+        	<div class="col-md-6">
+        		<small class="text-muted"><span class="glyphicon glyphicon-exclamation-sign"></span> Priority:</small><br>
+        		{{{prio priority}}}<hr>
+        		<small class="text-muted"><span class="glyphicon glyphicon-time"></span> Last progress made:</small><br>
+        		{{{lastprog last_progress}}}<hr>
+        		<small class="text-muted"><span class="glyphicon glyphicon-calendar"></span> Due date:</small><br>
+        		{{{due due_date}}}
+        	</div>
+
+        	<!-- timers -->
+        	<div class="col-md-6">
+        		<div class="panel panel-default panel-close panel-sharp" style="background-color:">
+        			<div class="panel-body wrap text-center unpad-x unpad-y">
+        				<span class="text-muted">Free time left</span><br>
+        				{{{dTimerHMS danger due_date}}}
+        				{{{dTimerDMY danger}}}
+        			</div>
+        		</div>
+        	</div>
+        </div>
+
+        <!-- remaining work -->
+        <div class="row">
+        	<div class="col-md-12 text-center">
+    				<hr><small class="text-muted">Remaining Work</small><br>
+    				{{{workLeft duration time_spent}}}
+        	</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="panel-footer text-center">
+    	<a href="#" data-target="#addProgFromHome" data-toggle="modal" data-id="{{_id}}" data-name="{{name}}" style="color:inherit;">
+    		<span class="glyphicon glyphicon-check"></span> Click to log new progress
+    	</a>
+    	<div class="progress">
+		    <div class="progress-bar progress-bar-{{progStyle percent_complete}}" style="width: {{percent_complete}}%">
+		    	{{percent_complete}}%
+		    </div>
+		  </div>
+    </div>
+
+  </div>
+</template>
+
+
+<!-- ###################################################################### -->
+<!-- vertical 7 day list-->
+
+<template name='calView'>
+	<div class="row" style="margin-bottom:10px;">
+	<div class="col-md-12">
+		<span class="text-muted">Drag and select to add an event</span>
+		<div class="pull-right btn-group">
+			<button class="btn btn-sm btn-default" id="addEventHomeBtn" data-toggle="modal" data-target="#addEventFromHome">Add selection as Event</button>
+			<button class="btn btn-sm btn-primary" id="save-events">Save Calendar</button>
+		</div>
+	</div>
+	</div>
+	<div class="row">
+	<div class="col-md-12">
+		<div id="calendar"></div>	
+	</div>
+	</div>
+
+</template>

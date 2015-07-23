@@ -1,0 +1,138 @@
+<!-- /client/views/navbar.html -->
+
+<template name='navbar'>
+
+	<!-- Fixed navbar -->
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-top">
+    <div class="container">
+
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">C<span style='color:yellow'>A</span>ESIUM</a>
+      </div>
+
+
+      <div id="navbar" class="navbar-collapse collapse">
+
+        <!-- task counts; clicking a count brings a dropdown of the relevant tasks except "active" -->
+        <ul class="nav navbar-nav navbar-left">
+
+          <!-- active tasks -->
+          <li class="dropdown">
+            <a class="def-cursor" data-hover="tooltip" data-placement="bottom" title="Total active tasks" href="/t/index">
+              <span class="label label-info">{{active_count}}</span>
+            </a>
+          </li>
+
+          <!-- completed tasks -->
+          <li class="dropdown">
+            <a class="def-cursor" data-hover="tooltip" data-placement="bottom" title="Completed tasks" href="/t/index">
+              <span class="label label-success">{{completed_count}}</span>
+            </a>
+          </li>
+
+          <!-- danger in 3 days -->
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="tooltip" data-placement="bottom" title="Tasks that become incompleteable within 3 days">
+              <span class="label label-warning">{{urgent_count}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Due in 3 days: Progress needed within 3 days</li>
+              {{#if urgent_count}}<li class="divider"></li>{{/if}}
+              {{#each urgent_cursor}}
+                <li>
+                  {{> navbarTask}}
+                </li>
+                <li class="divider"></li>
+              {{/each}}
+            </ul>
+          </li>
+
+          <!-- only show incompleteable if there are any -->
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="tooltip" data-placement="bottom" title="Incompleteable tasks">
+              <span class="label label-danger">{{danger_count}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Danger: Not enough time to complete</li>
+              {{#if danger_count}}<li class="divider"></li>{{/if}}
+              {{#each danger_cursor}}
+                <li>                  
+                  {{> navbarTask}}
+                </li>
+                <li class="divider"></li>
+              {{/each}}
+            </ul>
+          </li>
+
+          <!-- only show overdue if there are any -->
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" data-hover="tooltip" data-placement="bottom" title="Overdue tasks">
+              <span class="label label-black">{{overdue_count}}</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header">Overdue: too bad :(</li>
+              {{#if overdue_count}}<li class="divider"></li>{{/if}}
+              {{#each overdue_cursor}}
+                <li>
+                  {{> navbarTask}}
+                </li>
+                <li class="divider"></li>
+              {{/each}}
+            </ul>
+          </li>
+
+        </ul> <!-- navbar-left -->
+
+        <ul class="nav navbar-nav navbar-right">
+          <!-- links -->
+          <li class="{{home_bt}}"><a href="{{pathFor route='home'}}"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+          <li class="{{tasks_bt}}"><a href="/t/index"><span class="glyphicon glyphicon-tasks"></span> Tasks</a></li>
+          <!-- <li class="{{scheds_bt}}"><a href="{{pathFor route='schedule'}}"><span class="glyphicon glyphicon-calendar"></span> Schedules</a></li>
+ -->
+          <!-- account actions dropdown -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-cog"></span> 
+              Signed in as {{userIdentity}} 
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="logout-link" href="#">Log out</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!--/.nav-collapse -->
+
+
+    </div>
+  </nav>
+
+</template>
+
+<!-- template for individual task dropdown items -->
+<template name="navbarTask">
+  <a href="/t/{{_id}}" class="text-center" style="padding:0px 2px;">
+  <div class="panel panel-{{panelStyle priority}} panel-sharp" style="margin-bottom:0px;">
+    <div class="panel-heading">
+      <h3 class="panel-title">{{name}}</h3>
+    </div>
+    <div class="panel-body">
+      <p>
+        <small>Due</small> <span class="lead">{{timeString due_date}}</span>, {{dayDateString due_date}}
+        <hr>
+        <strong class="lead">{{workLeft duration time_spent}}</strong><small> of work remaining</small>
+      </p>
+      <div class="progress">
+        <div class="progress-bar progress-bar-{{progStyle percent_complete}}" style="width: {{percent_complete}}%"></div>
+      </div>
+      <a class="deact-task-home h5" href="#"><small>deactivate task</small></a>
+    </div>
+  </div>
+  </a>
+</template>

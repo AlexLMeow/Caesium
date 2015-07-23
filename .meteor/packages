@@ -1,0 +1,24 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+coffeescript
+iron:router
+accounts-ui
+accounts-password
+accounts-google
+accounts-facebook
+aldeed:collection2
+percolate:momentum
+twbs:bootstrap
+less
+tsega:bootstrap3-datetimepicker
+momentjs:moment
+zimme:select2-bootstrap3-css
+natestrauser:select2
+momentjs:twix
+summernote:summernote
+ericksond:clndr

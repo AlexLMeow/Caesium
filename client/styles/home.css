@@ -1,0 +1,88 @@
+/* client/styles/home.css
+*/
+
+.fc-view-container {
+	background-color: #e8e8e8;
+}
+
+/* reduce spacing between task panels */
+.col-md-12 .panel-home {
+	margin-bottom: 20px;
+	margin-top: 10px;
+}
+
+.btn-shadow {
+	background: rgba(0,0,0,0.15);
+	border-color: #AAA;
+}
+
+/* style links in panel headers*/
+.panel-heading a {
+	text-decoration: none;
+	color: inherit;
+}
+
+/* panel heading wrap */
+.panel-heading {
+	word-wrap: break-word;
+}
+
+/* narrow padding */
+.unpad-x {
+	padding-left: 5px;
+	padding-right: 5px;
+} 
+.unpad-y {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+/* reduces panel's bottom margin */
+.panel.panel-close {
+	margin-bottom: 5px;
+}
+
+/* tooltip recoloring*/
+.tooltip-inner {
+	background-color: #606060;
+	color: white;
+}
+.tooltip.top .tooltip-arrow {
+	border-top-color: #606060;
+}
+.tooltip.bottom .tooltip-arrow {
+	border-bottom-color: #606060;
+}
+.tooltip.right .tooltip-arrow {
+	border-right-color: #606060;
+}
+.tooltip.left .tooltip-arrow {
+	border-left-color: #606060;
+}
+
+/* resize larger glyph in buttons */
+.btn-glyph {
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+.btn-glyph > .glyphicon {
+	font-size: 17px;
+}
+
+/* scrolling elements with niceScroll */
+.scroll {
+	margin-top: 10px;
+}
+
+/* size container for task names in homeTask*/
+.panel-home .panel-heading .pull-left {
+	width: 70%;
+}
+/* size task name text in homeTask */
+.panel-home .panel-heading a.panel-title {
+	line-height: 30px;
+}
+/* align btn-group in task header */
+.panel-home .panel-heading > .btn-group.pull-right {
+	margin-right: -5px;
+}

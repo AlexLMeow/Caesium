@@ -1,0 +1,66 @@
+<!-- /client/views/auth.html -->
+
+
+
+<!-- layout for auth page -->
+<template name='auth-layout'>
+
+	<h1 align="center" id="login-header">C<span style='color:#ffcc00'>A</span>ESIUM</h1>
+
+	<div class="container">
+    {{> yield}}
+  </div>
+
+</template>
+
+
+
+
+<!-- login/signup form -->
+<template name='auth'>
+
+  <form class="form-signin">
+
+    <!-- form headers -->
+    {{#if registering}}
+    <h2 class="form-signin-heading" align='center'>Register</h2>
+    {{else}}
+    <h2 class="form-signin-heading" align='center'>Log in</h2>
+    {{/if}}
+
+    <!-- data fields -->
+    <label for="inputEmail" class="sr-only">Email address</label>
+    <input type="email" name='email' id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name='password' id="inputPassword" class="form-control" placeholder="Password" required>
+
+    <!-- signup/login submit buttons -->
+    {{#if registering}}
+    <button id="signup" class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>  
+    <a class='login-switchlogin' href='#' align='center'>Log In</a>
+    {{else}}
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="remember-me"> Remember me
+      </label>
+    </div>
+    <button id="login" class="btn btn-lg btn-primary btn-block" type="submit">Log in</button>
+    <a class='login-switchregister' href='#' align='center'>Sign Up</a>
+    {{/if}}
+
+  </form>
+
+  <!-- error mesages -->
+  {{#if loginErr}}
+  <button id='login-err' class="btn btn-warning btn-sm" type="button">
+    There was an error signing in. Have you registered yet?
+  </button>
+  {{/if}}
+  <br />
+  {{#if signupErr}}
+  <button id='signup-err' class="btn btn-warning btn-sm" type="button">
+    There was an error signing up. Maybe you already registered?
+  </button>
+  {{/if}}
+
+</template>

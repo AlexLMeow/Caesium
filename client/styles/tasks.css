@@ -1,0 +1,32 @@
+/* 
+/client/styles/tasks.css 
+*/
+
+.right-col {
+	margin-top: -30px;
+	padding-top: 30px;
+	background-color: #FFF;
+	border-left: 3px groove #ccc;
+	border-bottom: 3px groove #ccc;
+	max-height: 90vh;
+	overflow-y: auto;
+}
+
+.task-pane hr {
+	border-color: #EEE;
+	margin-bottom: 20px;
+}
+
+.task-pane .panel-body > hr {
+	margin-bottom: 10px;
+}
+
+.task-pane-timer h5 {
+	margin-top: 5px;
+	margin-bottom: 0;
+}
+
+.sharpen-top {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}

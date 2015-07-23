@@ -1,0 +1,53 @@
+/* inactive button styling*/
+.btn.btn-inactive:focus,
+.btn.btn-inactive:active:focus,
+.btn.btn-inactive:hover,
+.btn.btn-inactive:active,
+.btn.btn-inactive {
+	cursor: default !important;
+	outline: none !important;
+	box-shadow: inset 0 0 0 rgba(0,0,0,0) !important;
+	-webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0) !important;
+}
+.btn-default.btn-inactive:focus,
+.btn-default.btn-inactive:hover,
+.btn-default.btn-inactive:active,
+.btn-default.btn-inactive:active:focus {
+	background-color: #fff;
+  border-color: #ccc;
+}
+.btn-primary.btn-inactive:focus,
+.btn-primary.btn-inactive:hover,
+.btn-primary.btn-inactive:active,
+.btn-primary.btn-inactive:active:focus {
+	background-color: #337ab7;
+  border-color: #2e6da4;
+}
+.btn-success.btn-inactive:focus,
+.btn-success.btn-inactive:hover,
+.btn-success.btn-inactive:active,
+.btn-success.btn-inactive:active:focus {
+	background-color: #5cb85c;
+  border-color: #4cae4c;
+}
+.btn-info.btn-inactive:focus,
+.btn-info.btn-inactive:hover,
+.btn-info.btn-inactive:active,
+.btn-info.btn-inactive:active:focus {
+	background-color: #5bc0de;
+  border-color: #46b8da;
+}
+.btn-warning.btn-inactive:focus,
+.btn-warning.btn-inactive:hover,
+.btn-warning.btn-inactive:active,
+.btn-warning.btn-inactive:active:focus {
+	background-color: #f0ad4e;
+  border-color: #eea236;
+}
+.btn-danger.btn-inactive:focus,
+.btn-danger.btn-inactive:hover,
+.btn-danger.btn-inactive:active,
+.btn-danger.btn-inactive:active:focus {
+	background-color: #d9534f;
+  border-color: #d43f3a;
+}
