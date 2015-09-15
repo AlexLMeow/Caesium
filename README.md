@@ -1,3 +1,3 @@
 # Caesium
 
-caesium.meteor.com
+http://caesium.meteor.com
