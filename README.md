@@ -1,3 +1,3 @@
 # Caesium
 
-http://caesium.meteor.com
+http://caesium-planner.herokuapp.com
